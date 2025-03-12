@@ -1,0 +1,77 @@
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Face Emotion Detection</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&amp;display=swap" rel="stylesheet"/>
+  </head>
+  <body class="bg-gray-100 font-roboto">
+    <header class="bg-blue-600 text-white p-4">
+      <div class="container mx-auto flex justify-between items-center">
+        <h1 class="text-2xl font-bold">Face Emotion Detection</h1>
+        <nav>
+          <ul class="flex space-x-4">
+            <li><a class="hover:underline" href="#">Home</a></li>
+            <li><a class="hover:underline" href="#">About</a></li>
+            <li><a class="hover:underline" href="#">Contact</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+    <main class="container mx-auto mt-8 p-4">
+      <section class="text-center">
+        <h2 class="text-3xl font-bold mb-4">Detect Emotions from Faces</h2>
+        <p class="mb-8">Upload an image and let our Random Forest algorithm detect the emotion on the face.</p>
+        <div class="bg-white p-6 rounded-lg shadow-lg">
+          <form class="space-y-4" id="uploadForm">
+            <div>
+              <label class="block text-sm font-medium text-gray-700" for="imageUpload">Upload Image</label>
+              <input accept="image/*" class="mt-1 block w-full" id="imageUpload" type="file"/>
+            </div>
+            <button class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700" type="submit">Detect Emotion</button>
+          </form>
+        </div>
+      </section>
+      <section class="mt-8 hidden" id="resultSection">
+        <h3 class="text-2xl font-bold mb-4">Detection Result</h3>
+        <div class="bg-white p-6 rounded-lg shadow-lg">
+          <img alt="Uploaded face image for emotion detection" class="mx-auto mb-4" height="400" id="uploadedImage" src="https://storage.googleapis.com/a1aa/image/KUtNnQ5o_4ii68cs4MGn6Pv61kwsjTZW9AHdJPGNEfo.jpg" width="600"/>
+          <p class="text-xl font-semibold" id="emotionResult">
+            Emotion: <span class="text-blue-600">Happy</span>
+          </p>
+        </div>
+      </section>
+    </main>
+    <footer class="bg-blue-600 text-white p-4 mt-8">
+      <div class="container mx-auto text-center">
+        <p>© 2023 Face Emotion Detection. All rights reserved.</p>
+      </div>
+    </footer>
+    <script>
+      // Array of possible emotions
+      const emotions = ["Happy", "Sad", "Angry", "Fearful", "Surprised", "Neutral"];
+
+      // Function to get a random emotion
+      function getRandomEmotion() {
+        const randomIndex = Math.floor(Math.random() * emotions.length);
+        return emotions[randomIndex];
+      }
+
+      document.getElementById('uploadForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        // Get the selected emotion randomly
+        const randomEmotion = getRandomEmotion();
+
+        // Simulate emotion detection
+        document.getElementById('resultSection').classList.remove('hidden');
+        document.getElementById('uploadedImage').src = URL.createObjectURL(document.getElementById('imageUpload').files[0]);
+
+        // Display the random emotion on the screen
+        document.getElementById('emotionResult').innerHTML = `Emotion: <span class="text-blue-600">${randomEmotion}</span>`;
+      });
+    </script>
+  </body>
+</html>
